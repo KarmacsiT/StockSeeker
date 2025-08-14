@@ -1,6 +1,5 @@
 import clsx from "clsx";
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { montserrat, roboto } from "./ui/fonts";
 import Search from "./ui/home/search";
@@ -10,13 +9,13 @@ export const metadata: Metadata = {
 };
 
 export default function RootLayout({
-  children,
+	children,
 }: Readonly<{
-  children: React.ReactNode;
+	children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body
+	return (
+		<html lang="en">
+			<body
 				className={clsx(
 					roboto.className,
 					"antialiased min-h-screen bg-[#121212] flex flex-col items-center px-6 text-white"
@@ -44,7 +43,7 @@ export default function RootLayout({
 				<footer className="w-full text-[#90A4AE] text-center py-6 text-sm border-t border-[#2C2C2C]">
 					© {new Date().getFullYear()} StockSeeker · All rights reserved
 				</footer>
-      </body>
-    </html>
-  );
+			</body>
+		</html>
+	);
 }
