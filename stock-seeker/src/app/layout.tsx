@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import type { Metadata } from "next";
+import Link from "next/link";
 import "./globals.css";
 import { montserrat, roboto } from "./ui/fonts";
 import Search from "./ui/home/search";
@@ -24,14 +25,15 @@ export default function RootLayout({
 				<header className="w-full border-b border-[#2C2C2C]">
 					<div className={clsx("w-full px-4 py-3")}>
 						<div className="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:gap-4">
-							<h1
+							<Link
 								className={clsx(
 									montserrat.className,
 									"text-2xl font-extrabold text-[#BB86FC] sm:shrink-0 sm:text-left text-center w-full sm:w-auto"
 								)}
+								href="/"
 							>
 								StockSeeker
-							</h1>
+							</Link>
 
 							<Search placeholder="Enter stock name or symbol..." />
 						</div>
