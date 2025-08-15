@@ -4,6 +4,7 @@ import { searchStocks } from "@/app/lib/alphaVantageApi";
 import { TickerSearchInfo } from "@/app/lib/interfaces/tickerSearchInfo";
 import clsx from "clsx";
 import Form from "next/form";
+import { useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { FaSearch } from "react-icons/fa";
 import { useDebouncedCallback } from "use-debounce";
@@ -14,6 +15,8 @@ export default function Search({ placeholder }: { placeholder: string }) {
 	const [searchResult, setSearchResults] = useState<TickerSearchInfo[]>([]);
 
 	const ref = useRef<HTMLDivElement | null>(null);
+
+	const { push } = useRouter();
 
 	const handleClickOutside = (event: MouseEvent) => {
 		if (ref.current && !ref.current.contains(event.target as Node))
@@ -68,12 +71,10 @@ export default function Search({ placeholder }: { placeholder: string }) {
 								searchResult.map((item, index) => (
 									<li
 										key={index}
-										className="px-3 sm:px-4 py-2 text-white hover:bg-[#3A3A3A] text-sm sm:text-base"
+										className="px-3 sm:px-4 py-2 text-white hover:bg-[#3A3A3A] text-sm cursor-pointer sm:text-base"
+										onClick={() => push(`/search?symbol=${item.symbol}`)}
 									>
-										<button
-											className="w-full text-left"
-											type="submit"
-										>{`${item.symbol} - ${item.name}`}</button>
+										{`${item.symbol} - ${item.name}`}
 									</li>
 								))
 							) : (
