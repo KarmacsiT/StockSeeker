@@ -1,4 +1,8 @@
-const ErrorModule = ({ errorMessage }: { errorMessage: string }) => {
+export default function ErrorModule({
+	errorMessage,
+}: {
+	errorMessage: string;
+}) {
 	if (!errorMessage) return null;
 
 	return (
@@ -9,6 +13,4 @@ const ErrorModule = ({ errorMessage }: { errorMessage: string }) => {
 			</div>
 		</div>
 	);
-};
-
-export default ErrorModule;
+}

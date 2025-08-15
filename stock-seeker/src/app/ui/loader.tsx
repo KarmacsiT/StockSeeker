@@ -2,7 +2,7 @@
 
 import styles from "./loader.module.css";
 
-const Loader = () => {
+export default function Loader() {
 	return (
 		<div className={styles["lds-roller"]}>
 			{Array.from({ length: 8 }).map((_, i) => (
@@ -10,6 +10,4 @@ const Loader = () => {
 			))}
 		</div>
 	);
-};
-
-export default Loader;
+}
