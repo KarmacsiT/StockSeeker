@@ -4,6 +4,7 @@ import Link from "next/link";
 import "./globals.css";
 import { montserrat, roboto } from "./ui/fonts";
 import Search from "./ui/home/search";
+
 export const metadata: Metadata = {
 	title: "StockSeeker",
 	description: "A stock analyzer tool powered by Alpha Vantage",
