@@ -11,9 +11,17 @@ export default async function StockQuote({
 
 	if (!symbol || typeof symbol !== "string") redirect(`/`);
 
-	const stockData = await getStockQuote(symbol);
+	const stockDataResponse = await getStockQuote(symbol);
 
-	if (!stockData) redirect(`/`);
+	if (!stockDataResponse) redirect(`/`);
 
-	return <QuoteOverview quoteData={stockData} />;
+	return (
+		<>
+			{typeof stockDataResponse === "string" ? (
+				<ErrorModule errorMessage={stockDataResponse} />
+			) : (
+				<QuoteOverview quoteData={stockDataResponse} />
+			)}
+		</>
+	);
 }
