@@ -23,7 +23,8 @@ export async function searchStocks(
 ): Promise<TickerSearchInfo[] | undefined> {
 	try {
 		const response = await fetch(
-			`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${term}&apikey=${process.env.ALPHA_VANTAGE_API_DEMO}`
+			`https://www.alphavantage.co/query?function=SYMBOL_SEARCH&keywords=${term}&apikey=${process.env.ALPHA_VANTAGE_API_KEY}`,
+			{ cache: "force-cache" }
 		);
 
 		if (!response.ok)
@@ -74,7 +75,8 @@ export async function getStockQuote(
 ): Promise<StockQuote | undefined> {
 	try {
 		const response = await fetch(
-			`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${process.env.ALPHA_VANTAGE_API_KEY}`
+			`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${process.env.ALPHA_VANTAGE_API_KEY}`,
+			{ cache: "force-cache" }
 		);
 
 		if (!response.ok)
