@@ -8,5 +8,4 @@ export interface StockQuote {
 	latestTradingDay: string;
 	previousClose: string;
 	change: string;
-	changePercent: string;
 }
