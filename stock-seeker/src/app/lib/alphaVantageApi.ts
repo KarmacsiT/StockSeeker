@@ -93,10 +93,11 @@ export async function getStockQuote(
 			low: quoteRaw["04. low"],
 			price: quoteRaw["05. price"],
 			volume: quoteRaw["06. volume"],
-			latestTradingDay: quoteRaw["07. latest trading day"],
+			latestTradingDay: new Date(
+				quoteRaw["07. latest trading day"]
+			).toLocaleDateString("en"),
 			previousClose: quoteRaw["08. previous close"],
-			change: quoteRaw["09. change"],
-			changePercent: quoteRaw["10. change percent"],
+			change: `${quoteRaw["09. change"]} (${quoteRaw["10. change percent"]})`,
 		};
 
 		console.log(quote);
