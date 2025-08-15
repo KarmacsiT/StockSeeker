@@ -15,7 +15,6 @@ export default function QuoteOverview({
 		latestTradingDay,
 		previousClose,
 		change,
-		changePercent,
 	} = quoteData;
 
 	const formatNumber = (value?: string) => {
@@ -34,14 +33,13 @@ export default function QuoteOverview({
 
 				<div className="grid grid-cols-2 gap-y-3 gap-x-4 text-white">
 					<QuoteRow label="Open" value={open} />
+					<QuoteRow label="Previous Close" value={previousClose} />
 					<QuoteRow label="High" value={high} />
 					<QuoteRow label="Low" value={low} />
 					<QuoteRow label="Price" value={price} isPrice />
 					<QuoteRow label="Volume" value={formatNumber(volume)} />
 					<QuoteRow label="Latest Trading Day" value={latestTradingDay} />
-					<QuoteRow label="Previous Close" value={previousClose} />
 					<QuoteRow label="Change" value={change} isChange />
-					<QuoteRow label="Change %" value={changePercent} isChange />
 				</div>
 			</div>
 		</div>
