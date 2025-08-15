@@ -14,7 +14,7 @@ export default function Home() {
 	];
 
 	return (
-		<section className="w-full mt-10 max-w-2xl min-h-screen">
+		<section className="w-full mt-10 max-w-2xl min-h-190">
 			<Heading content="Trending Stocks"></Heading>
 			<div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
 				{trendingStocks.map((stock) => (
