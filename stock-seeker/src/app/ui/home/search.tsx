@@ -10,6 +10,7 @@ import { useDebouncedCallback } from "use-debounce";
 
 export default function Search({ placeholder }: { placeholder: string }) {
 	const [showDropdown, setShowDropdown] = useState(false);
+	const [inputValue, setInputValue] = useState("");
 	const [searchResult, setSearchResults] = useState<TickerSearchInfo[]>([]);
 
 	const ref = useRef<HTMLDivElement | null>(null);
@@ -28,6 +29,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
 
 	const handleSearch = useDebouncedCallback(async (searchTerm) => {
 		if (searchTerm) {
+			setInputValue(searchTerm);
 			const stocksByKeyword = await searchStocks(searchTerm);
 			if (stocksByKeyword) setSearchResults(stocksByKeyword);
 		}
@@ -35,7 +37,13 @@ export default function Search({ placeholder }: { placeholder: string }) {
 	}, 300);
 
 	return (
-		<div className="relative w-full max-w-xl" ref={ref}>
+		<div
+			className="relative w-full max-w-xl"
+			ref={ref}
+			onClick={async () =>
+				inputValue?.length && (await handleSearch(inputValue))
+			}
+		>
 			<div
 				className={clsx(
 					"relative w-full border border-[#2C2C2C] bg-[#1E1E1E] shadow-sm focus-within:ring-2 focus-within:ring-[#BB86FC]",
@@ -47,10 +55,10 @@ export default function Search({ placeholder }: { placeholder: string }) {
 
 				<Form action="/search">
 					<input
+						className="w-full bg-transparent text-white placeholder-[#CFD8DC] outline-none text-sm sm:text-base"
 						name="symbol"
 						type="text"
 						placeholder={placeholder}
-						className="w-full bg-transparent text-white placeholder-[#CFD8DC] outline-none text-sm sm:text-base"
 						onChange={async (e) => await handleSearch(e.target.value)}
 					/>
 
@@ -62,7 +70,10 @@ export default function Search({ placeholder }: { placeholder: string }) {
 										key={index}
 										className="px-3 sm:px-4 py-2 text-white hover:bg-[#3A3A3A] text-sm sm:text-base"
 									>
-										<button type="submit">{`${item.symbol} - ${item.name}`}</button>
+										<button
+											className="w-full text-left"
+											type="submit"
+										>{`${item.symbol} - ${item.name}`}</button>
 									</li>
 								))
 							) : (
