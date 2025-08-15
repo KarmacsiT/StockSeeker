@@ -45,7 +45,6 @@ export async function searchStocks(
 			matchScore: item["9. matchScore"],
 		}));
 
-		console.log(JSON.stringify(stocks, null, 2));
 		return stocks;
 	} catch (error) {
 		console.error("Failed to search stocks by keyword:", error);
@@ -72,7 +71,7 @@ const globalQuoteResponseSchema = z.object({
 
 export async function getStockQuote(
 	symbol: string
-): Promise<StockQuote | undefined> {
+): Promise<StockQuote | string> {
 	try {
 		const response = await fetch(
 			`https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=${symbol}&apikey=${process.env.ALPHA_VANTAGE_API_KEY}`,
@@ -100,10 +99,9 @@ export async function getStockQuote(
 			change: `${quoteRaw["09. change"]} (${quoteRaw["10. change percent"]})`,
 		};
 
-		console.log(quote);
 		return quote;
 	} catch (error) {
 		console.error("Failed to fetch stock quote:", error);
-		return undefined;
+		return `Couldn\'t get stock quote for ${symbol}. Please try again!`;
 	}
 }
