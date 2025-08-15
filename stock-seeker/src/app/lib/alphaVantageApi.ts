@@ -2,7 +2,7 @@ import { z } from "zod";
 import { StockQuote } from "./interfaces/stockQuote";
 import { TickerSearchInfo } from "./interfaces/tickerSearchInfo";
 
-const bestMatchSchema = z.object({
+const searchStocksItemSchema = z.object({
 	"1. symbol": z.string(),
 	"2. name": z.string(),
 	"3. type": z.string(),
@@ -15,7 +15,7 @@ const bestMatchSchema = z.object({
 });
 
 const searchStocksResponseSchema = z.object({
-	bestMatches: z.array(bestMatchSchema),
+	bestMatches: z.array(searchStocksItemSchema),
 });
 
 export async function searchStocks(
@@ -52,7 +52,7 @@ export async function searchStocks(
 	}
 }
 
-const globalQuoteRawSchema = z.object({
+const globalQuoteItemSchema = z.object({
 	"01. symbol": z.string(),
 	"02. open": z.string(),
 	"03. high": z.string(),
@@ -66,7 +66,7 @@ const globalQuoteRawSchema = z.object({
 });
 
 const globalQuoteResponseSchema = z.object({
-	"Global Quote": globalQuoteRawSchema,
+	"Global Quote": globalQuoteItemSchema,
 });
 
 export async function getStockQuote(
