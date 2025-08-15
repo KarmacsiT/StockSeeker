@@ -31,19 +31,21 @@ export async function searchStocks(
 			throw new Error(`Request failed! Status: ${response.status}`);
 
 		const data = await response.json();
-		const parsed = searchStocksResponseSchema.parse(data);
+		const validatedStockResults = searchStocksResponseSchema.parse(data);
 
-		const stocks: TickerSearchInfo[] = parsed.bestMatches.map((item) => ({
-			symbol: item["1. symbol"],
-			name: item["2. name"],
-			type: item["3. type"],
-			region: item["4. region"],
-			marketOpen: item["5. marketOpen"],
-			marketClose: item["6. marketClose"],
-			timezone: item["7. timezone"],
-			currency: item["8. currency"],
-			matchScore: item["9. matchScore"],
-		}));
+		const stocks: TickerSearchInfo[] = validatedStockResults.bestMatches.map(
+			(item) => ({
+				symbol: item["1. symbol"],
+				name: item["2. name"],
+				type: item["3. type"],
+				region: item["4. region"],
+				marketOpen: item["5. marketOpen"],
+				marketClose: item["6. marketClose"],
+				timezone: item["7. timezone"],
+				currency: item["8. currency"],
+				matchScore: item["9. matchScore"],
+			})
+		);
 
 		return stocks;
 	} catch (error) {
@@ -82,21 +84,21 @@ export async function getStockQuote(
 			throw new Error(`Request failed! Status: ${response.status}`);
 
 		const data = await response.json();
-		const parsed = globalQuoteResponseSchema.parse(data);
-		const quoteRaw = parsed["Global Quote"];
+		const validatedStockQuote = globalQuoteResponseSchema.parse(data);
+		const globalQuote = validatedStockQuote["Global Quote"];
 
 		const quote: StockQuote = {
-			symbol: quoteRaw["01. symbol"],
-			open: quoteRaw["02. open"],
-			high: quoteRaw["03. high"],
-			low: quoteRaw["04. low"],
-			price: quoteRaw["05. price"],
-			volume: quoteRaw["06. volume"],
+			symbol: globalQuote["01. symbol"],
+			open: globalQuote["02. open"],
+			high: globalQuote["03. high"],
+			low: globalQuote["04. low"],
+			price: globalQuote["05. price"],
+			volume: globalQuote["06. volume"],
 			latestTradingDay: new Date(
-				quoteRaw["07. latest trading day"]
+				globalQuote["07. latest trading day"]
 			).toLocaleDateString("en"),
-			previousClose: quoteRaw["08. previous close"],
-			change: `${quoteRaw["09. change"]} (${quoteRaw["10. change percent"]})`,
+			previousClose: globalQuote["08. previous close"],
+			change: `${globalQuote["09. change"]} (${globalQuote["10. change percent"]})`,
 		};
 
 		return quote;

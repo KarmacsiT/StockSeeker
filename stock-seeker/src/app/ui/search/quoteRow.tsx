@@ -1,9 +1,4 @@
-interface QuoteRowProps {
-	label: string;
-	value?: string;
-	isPrice?: boolean;
-	isChange?: boolean;
-}
+import { QuoteRowProps } from "@/app/lib/interfaces/quoteRowProps";
 
 export default function QuoteRow({
 	label,
